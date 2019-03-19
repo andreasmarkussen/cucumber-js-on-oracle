@@ -1,0 +1,82 @@
+[
+  {
+    "keyword": "Feature",
+    "name": "Employees",
+    "line": 1,
+    "id": "employees",
+    "tags": [],
+    "uri": "features\\employees.feature",
+    "elements": [
+      {
+        "id": "employees;scenario-name",
+        "keyword": "Scenario",
+        "line": 3,
+        "name": "Scenario name",
+        "tags": [],
+        "type": "scenario",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "match": {
+              "location": "features\\support\\world.js:18"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 295000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 4,
+            "name": "the Employee \"Steven King\" has a salary of 24000",
+            "match": {
+              "location": "features\\step_definitions\\employee_steps.ts:14"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 36000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 5,
+            "name": "he gets a 20% raise",
+            "match": {
+              "location": "features\\step_definitions\\employee_steps.ts:28"
+            },
+            "result": {
+              "status": "passed"
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 6,
+            "name": "his new salary is 28800",
+            "match": {
+              "location": "features\\step_definitions\\employee_steps.ts:36"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 159000000
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "match": {
+              "location": "features\\support\\world.js:22"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1000000
+            }
+          }
+        ]
+      }
+    ]
+  }
+]

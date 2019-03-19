@@ -1,0 +1,35 @@
+{
+  "name": "cucumber-on-oracle",
+  "version": "1.0.0",
+  "description": "Proof of Concept to show how to make BDD on Oracle Databases and PL/SQL",
+  "main": "index.js",
+  "scripts": {
+    "test": "cucumber-js",
+    "unitTest": "mocha -r ts-node/register test/**/*.spec.ts"
+  },
+  "keywords": [
+    "BDD",
+    "PLSQL",
+    "SQL",
+    "Oracle",
+    "Test",
+    "Automation"
+  ],
+  "author": "Andreas Markussen <andreas@markussen.dk>",
+  "license": "ISC",
+  "dependencies": {
+    "@types/chai": "^4.1.7",
+    "chai": "^4.2.0",
+    "cucumber": "^5.1.0",
+    "oracledb": "^3.1.2",
+    "tsc": "^1.20150623.0"
+  },
+  "devDependencies": {
+    "@types/cucumber": "^4.0.5",
+    "@types/mocha": "^5.2.6",
+    "@types/oracledb": "^1.11.34",
+    "mocha": "^6.0.2",
+    "ts-node": "^8.0.3",
+    "typescript": "^3.3.3333"
+  }
+}
