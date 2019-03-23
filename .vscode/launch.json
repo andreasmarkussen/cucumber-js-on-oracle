@@ -5,6 +5,16 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Current TS File",
+            "type": "node",
+            "request": "launch",
+            "args": ["${relativeFile}"],
+            "runtimeArgs": ["--nolazy", "-r", "ts-node/register"],
+            "sourceMaps": true,
+            "cwd": "${workspaceRoot}",
+            "protocol": "inspector",
+        },
+        {
             "type": "node",
             "request": "launch",
             "name": "Launch Program Cucum",
@@ -20,7 +30,9 @@
             "name": "Launch Program Mocha",
             "program": "${workspaceFolder}/node_modules/mocha/bin/_mocha",
             "args": [  "--require", "ts-node/register",
-                "${workspaceFolder}/test/**/*.ts"],
+                "${workspaceFolder}/test/**/*.ts",
+                "--instbrk"
+            ],
             "skipFiles": [
                 "${workspaceRoot}/node_modules/**/*.js",
                 "<node_internals>/**/*.js"

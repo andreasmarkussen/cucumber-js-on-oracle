@@ -22,7 +22,7 @@ export interface IEmployee{
     EMAIL:string;
     PHONE_NUMBER:string;
     HIRE_DATE:Date;
-    JOB_ID:number;
+    JOB_ID:string;
     SALARY:number;
     COMMISSION_PCT:number;
     MANAGER_ID:number;

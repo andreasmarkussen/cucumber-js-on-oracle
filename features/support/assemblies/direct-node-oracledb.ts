@@ -1,32 +1,32 @@
-import {ParentAssembly} from './iassembly';
-import {DatabaseEmployeeList, GenericEmployeeList} from '../../../lib/databaseEmployeeList';
+import { ParentAssembly } from './iassembly';
+import { DatabaseEmployeeList, GenericEmployeeList } from '../../../lib/databaseEmployeeList';
 
-class myClass implements ParentAssembly{
-    public _databaseEmployeeList : DatabaseEmployeeList;
-    constructor(){
-      this._databaseEmployeeList = new DatabaseEmployeeList()
-        
-    };
+class myClass implements ParentAssembly {
+  public _databaseEmployeeList: DatabaseEmployeeList;
+  constructor() {
+    this._databaseEmployeeList = new DatabaseEmployeeList()
 
-    async start(){
-      await this._databaseEmployeeList.start();
-    };
-    async stop(){
+  };
 
-    };
+  async start() {
+    await this._databaseEmployeeList.start();
+  };
+  async stop() {
 
-    async contextEmployeeList():Promise<GenericEmployeeList>{
-      //console.log("Asking for _databaseEmployeeList",this._databaseEmployeeList)
-      return this._databaseEmployeeList
-    }
-  
-    async actionEmployeeList():Promise<GenericEmployeeList>{
-      return this._databaseEmployeeList
-    }
-  
-    async outcomeEmployeeList():Promise<GenericEmployeeList>{
-      return this._databaseEmployeeList
-    }
+  };
+
+  async contextEmployeeList(): Promise<GenericEmployeeList> {
+    //console.log("Asking for _databaseEmployeeList",this._databaseEmployeeList)
+    return this._databaseEmployeeList
+  }
+
+  async actionEmployeeList(): Promise<GenericEmployeeList> {
+    return this._databaseEmployeeList
+  }
+
+  async outcomeEmployeeList(): Promise<GenericEmployeeList> {
+    return this._databaseEmployeeList
+  }
 };
 
 /**
@@ -54,4 +54,4 @@ module.exports = class DatabaseAssembly {
 }
  */
 
- module.exports = myClass;
+module.exports = myClass;
