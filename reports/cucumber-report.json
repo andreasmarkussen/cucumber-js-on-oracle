@@ -1,17 +1,19 @@
 [
   {
+    "description": "    As a Developer doing Test Automation\n    I want to generate the boilerplate code of calling PlSQL\n    So that I am sure that it is typesafe and I save large amounts of time\n\n    Further more we want to know, if the PLSQL interface of the functionality have changed. \n\n    We can detect this by auto generating the TypeScript code, and then do a Git Diff in the ´./lib/generated´ folder. \n\n    Each procedure gets its own file\n    Each package should get its own file (NOT IMPLEMENTED YET)",
     "keyword": "Feature",
-    "name": "Employees",
+    "name": "Code Generation of a typesafe TypeScript/PlSQL gateway",
     "line": 1,
-    "id": "employees",
+    "id": "code-generation-of-a-typesafe-typescript/plsql-gateway",
     "tags": [],
-    "uri": "features\\employees.feature",
+    "uri": "features\\code_generation.feature",
     "elements": [
       {
-        "id": "employees;scenario-name",
+        "description": "        The purpose of the code generator is to generate the Plsql that calls the code,\n        using clear text and not using bind variables.",
+        "id": "code-generation-of-a-typesafe-typescript/plsql-gateway;simple-procedure-with-4-in-arguments-and-no-return",
         "keyword": "Scenario",
-        "line": 3,
-        "name": "Scenario name",
+        "line": 14,
+        "name": "Simple Procedure with 4 in arguments and no return",
         "tags": [],
         "type": "scenario",
         "steps": [
@@ -23,45 +25,133 @@
             },
             "result": {
               "status": "passed",
-              "duration": 295000000
+              "duration": 10000000
             }
           },
           {
             "arguments": [],
             "keyword": "Given ",
-            "line": 4,
-            "name": "the Employee \"Steven King\" has a salary of 24000",
+            "line": 19,
+            "name": "a procedure exists called 'ADD_JOB_HISTORY'",
             "match": {
-              "location": "features\\step_definitions\\employee_steps.ts:14"
+              "location": "features\\step_definitions\\code_gen_steps.ts:17"
             },
             "result": {
               "status": "passed",
-              "duration": 36000000
+              "duration": 129000000
+            }
+          },
+          {
+            "arguments": [
+              {
+                "rows": [
+                  {
+                    "cells": [
+                      "argument_name",
+                      "data_type"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "P_EMP_ID",
+                      "NUMBER"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "P_START_DATE",
+                      "DATE"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "P_END_DATE",
+                      "DATE"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "P_JOB_ID",
+                      "VARCHAR2"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "P_DEPARTMENT_ID",
+                      "NUMBER"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "keyword": "And ",
+            "line": 20,
+            "name": "the procedure has these arguments",
+            "match": {
+              "location": "features\\step_definitions\\code_gen_steps.ts:33"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 6000000
             }
           },
           {
             "arguments": [],
             "keyword": "When ",
-            "line": 5,
-            "name": "he gets a 20% raise",
+            "line": 27,
+            "name": "TypeScript code is generated",
             "match": {
-              "location": "features\\step_definitions\\employee_steps.ts:28"
+              "location": "features\\step_definitions\\code_gen_steps.ts:51"
             },
             "result": {
-              "status": "passed"
+              "status": "passed",
+              "duration": 7000000
+            }
+          },
+          {
+            "arguments": [
+              {
+                "rows": [
+                  {
+                    "cells": [
+                      "source_code"
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "_call_ADD_JOB_HISTORY("
+                    ]
+                  },
+                  {
+                    "cells": [
+                      "P_EMP_ID"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "keyword": "Then ",
+            "line": 28,
+            "name": "code contains these strings in sequence",
+            "match": {
+              "location": "features\\step_definitions\\code_gen_steps.ts:60"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 2000000
             }
           },
           {
             "arguments": [],
-            "keyword": "Then ",
-            "line": 6,
-            "name": "his new salary is 28800",
+            "keyword": "And ",
+            "line": 32,
+            "name": "the generated file is similar to './lib/generated/ADD_JOB_HISTORY.target.ts'",
             "match": {
-              "location": "features\\step_definitions\\employee_steps.ts:36"
+              "location": "features\\step_definitions\\code_gen_steps.ts:70"
             },
             "result": {
               "status": "passed",
-              "duration": 159000000
+              "duration": 3000000
             }
           },
           {
@@ -71,8 +161,157 @@
               "location": "features\\support\\world.js:22"
             },
             "result": {
+              "status": "passed"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "description": "This feature is to try out how to verify things in the Oracle Database as a sample project. ",
+    "keyword": "Feature",
+    "name": "Employees",
+    "line": 1,
+    "id": "employees",
+    "tags": [],
+    "uri": "features\\employees.feature",
+    "elements": [
+      {
+        "id": "employees;simple-sql---with-select-and-update",
+        "keyword": "Scenario",
+        "line": 5,
+        "name": "Simple SQL - With Select and update",
+        "tags": [],
+        "type": "scenario",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "match": {
+              "location": "features\\support\\world.js:18"
+            },
+            "result": {
+              "status": "passed"
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 6,
+            "name": "the Employee \"Steven King\" has a salary of 24000",
+            "match": {
+              "location": "features\\step_definitions\\employee_steps.ts:14"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 17000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 7,
+            "name": "he gets a 20% raise",
+            "match": {
+              "location": "features\\step_definitions\\employee_steps.ts:24"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 3000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 8,
+            "name": "his new salary is 28800",
+            "match": {
+              "location": "features\\step_definitions\\employee_steps.ts:30"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 4000000
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "match": {
+              "location": "features\\support\\world.js:22"
+            },
+            "result": {
+              "status": "passed"
+            }
+          }
+        ]
+      },
+      {
+        "id": "employees;simple-plsql---with-calling-a-function",
+        "keyword": "Scenario",
+        "line": 10,
+        "name": "Simple Plsql - With calling a function",
+        "tags": [],
+        "type": "scenario",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "match": {
+              "location": "features\\support\\world.js:18"
+            },
+            "result": {
               "status": "passed",
               "duration": 1000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 12,
+            "name": "the Employee \"Steven King\" has worked 0 places",
+            "match": {
+              "location": "features\\step_definitions\\employee_steps.ts:37"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 33000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 13,
+            "name": "he joins Department \"IT\"",
+            "match": {
+              "location": "features\\step_definitions\\employee_steps.ts:48"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 44000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 14,
+            "name": "he has worked 1 places",
+            "match": {
+              "location": "features\\step_definitions\\employee_steps.ts:54"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 5000000
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "match": {
+              "location": "features\\support\\world.js:22"
+            },
+            "result": {
+              "status": "passed"
             }
           }
         ]

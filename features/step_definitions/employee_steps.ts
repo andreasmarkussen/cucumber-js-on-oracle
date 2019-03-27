@@ -43,14 +43,12 @@ Given('the Employee {string} has worked {int} places', async function (employee_
   //   expect(currentEmployee.SALARY,"Salary must be as expected").to.eq(salary);
   globalCurrentEmployee = currentEmployee;
   globalEmployeeName = employee_name;
-  // return 'pending';
 });
 
 When('he joins Department {string}', async function (department_name: string) {
   // Write code here that turns the phrase above into concrete actions
   const employeeList: GenericEmployeeList = await this.actionEmployeeList();
-  const res = await employeeList.joinDepartment(globalCurrentEmployee.EMPLOYEE_ID, department_name);
-  // return 'pending';
+  await employeeList.joinDepartment(globalCurrentEmployee.EMPLOYEE_ID, department_name);
 });
 
 Then('he has worked {int} places', async function (placesWorked: number) {
@@ -58,24 +56,4 @@ Then('he has worked {int} places', async function (placesWorked: number) {
   const employeeList: GenericEmployeeList = await this.outcomeEmployeeList();
   const actualPlacesWorked = await employeeList.numberOfPlacesWorked(globalCurrentEmployee.EMPLOYEE_ID);
   expect(actualPlacesWorked, "Job history expected").to.eq(placesWorked);
-  //   return 'pending';
 });
-
-
-
-// Given('there is/are already {int} todo(s)', async function(count) {
-//   const todoList = await this.contextTodoList()
-//   for (let i = 0; i < count; i++)
-//     await todoList.addTodo({ text: `Todo ${i}` })
-// })
-
-// When('I add {string}', async function(text) {
-//   const todoList = await this.actionTodoList()
-//   await todoList.addTodo({ text })
-// })
-
-// Then('the text of the {ordinal} todo should be {string}', async function(index, text) {
-//   const todoList = await this.outcomeTodoList()
-//   const todos = await todoList.getTodos()
-//   assert.equal(todos[index].text, text)
-// })
