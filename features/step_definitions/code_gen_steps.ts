@@ -16,7 +16,7 @@ declare module "cucumber" {
 //? Given a procedure exists called 'ADD_JOB_HISTORY'
 Given('a procedure exists called {string}', async function (procedureName: string) {
   let IPlsqlProcedure = 0;
-  // Write code here that turns the phrase above into concrete actions
+
   const od = new OD.OracleDatabaseDriver();
   const returnedProceduresMetaData = await od.proceduresMetadata(`object_name=UPPER('${procedureName}')`);
   expect(returnedProceduresMetaData.length).to.eq(1);

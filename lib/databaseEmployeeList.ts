@@ -8,7 +8,7 @@ oracledb.outFormat = oracledb.ARRAY;
 const db_config = require('../oracle.config.js');
 
 export abstract class GenericEmployeeList {
-    abstract joinDepartment(employee_id: number, department_name: string): Promise<void>;
+    abstract joinDepartment(employee_id: number, department_name: string, job_id:string): Promise<void>;
     abstract start(): Promise<void>;
     abstract numberOfPlacesWorked(employee_id: number): Promise<number>;
     abstract getEmployeeByName(employee_name: string): Promise<IEmployee>;
@@ -61,43 +61,34 @@ export class DatabaseEmployeeList implements GenericEmployeeList {
     }
 
     public async getDepartmentByName(department_name): Promise<number> {
-        const res = await this.sqlExec(`select department_id from SYS.departments where department_name = '${department_name}' `);
-        console.log("getDepartment", department_name, res)
+        const res = await this.sqlExec(`select department_id from departments where department_name = '${department_name}' `);
         if (res)
             return res.rows.pop().pop();
         else
             throw new Error(`Unable to find department '${department_name}'`)
     }
 
-    public async joinDepartment(employee_id: number, department_name: string): Promise<void> {
+    public async joinDepartment(employee_id: number, department_name: string, job_id:string): Promise<void> {
         let today: Date = new Date();
         let next_year: Date = new Date();
         next_year.setFullYear(today.getFullYear() + 1);
-        const department_id = 60;
-        const job_id: string = 'IT_PROG';
-        const useGeneratedVersion = true;
-        if(useGeneratedVersion) // Added to show both things for comparison - dont ever change it. 
-            await this.call_generated_add_job_history(employee_id, today, next_year, job_id, department_id);
-        else
-            await this.call_add_job_history(employee_id, today, next_year, job_id, department_id);
-    }
-    /** this is a call to the auto generated PLSQL Gateway */
-    async call_generated_add_job_history(employee_id: number, today: Date, next_year: Date, job_id: string, department_id: number): Promise<any> {
-        return _call_ADD_JOB_HISTORY(employee_id, today,next_year,job_id,department_id);
+        const department_id = await this.getDepartmentByName(department_name);
+        await _call_ADD_JOB_HISTORY(employee_id, today, next_year, job_id, department_id);
     }
 
+    /** Hand coded alternative part 1  - Calling the code (not in use, but there for demo) */
     async call_add_job_history(p_emp_id: number, p_start_date: Date, p_end_date: Date, p_job_id: string, p_department_id: number): Promise<OraDB.IExecuteReturn> {
-        const plsql = DatabaseEmployeeList.add_job_history(p_emp_id, p_start_date, p_end_date, p_job_id, p_department_id);
+        const plsql_code_for_the_call = DatabaseEmployeeList.generate_code_for_add_job_history(p_emp_id, p_start_date, p_end_date, p_job_id, p_department_id);
         try {
-            const res = this.call_plsql(plsql);
-            return res;
+            return this.call_plsql(plsql_code_for_the_call);
         } catch (error) {
             console.log("Error happened while doing stuff", error);
+            throw error;
         }
-        return null;
     }
-
-    static add_job_history(p_emp_id, p_start_date, p_end_date, p_job_id, p_department_id): string {
+    
+    /** Hand coded alternative part 2 - staging or creating the code */
+    static generate_code_for_add_job_history(p_emp_id, p_start_date, p_end_date, p_job_id, p_department_id): string {
         const procedure_name = 'add_job_history';
         const ar_args = Array.from(arguments);
         let arguments_string: string;

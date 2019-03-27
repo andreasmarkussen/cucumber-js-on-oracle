@@ -9,6 +9,6 @@ Then his new salary is 28800
 
 Scenario: Simple Plsql - With calling a function
 
-Given the Employee "Steven King" has worked 0 places
-When he joins Department "IT"
+Given the Employee 'Steven King' has worked 0 places
+When he joins the 'IT' Department as an 'IT_PROG'
 Then he has worked 1 places
