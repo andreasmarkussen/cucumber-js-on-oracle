@@ -4,9 +4,10 @@
 
 To make a Proof of concept on how to test Oracle Database functionality via Cucumber JS, TypeScript and Code generation.
 
-The POC is inspired by the [SubSecond TDD - Todo list](https://github.com/subsecondtdd/todo-subsecond) by [Aslak Hellesøy](https://twitter.com/aslak_hellesoy), but rewritten to be using TypeScript and Oracle. And it does not follow the intent of Aslaks project, since I wanted to show the Auto generation parts.
+The POC is inspired by the [SubSecond TDD - Todo list](https://github.com/subsecondtdd/todo-subsecond) by [Aslak Hellesøy](https://twitter.com/aslak_hellesoy), but rewritten to be using TypeScript and Oracle.
+The target project for this, would be systems that has business logic in the PLSQL database. 
 
-I favored Developer speed over test executing speed, which is why I used Typescript and Code Generation. 
+I favored Developer speed over test executing speed, which is why I used Typescript and Code Generation.
 
 ## Key Features
 
