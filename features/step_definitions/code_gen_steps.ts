@@ -2,27 +2,60 @@ import { expect, assert } from 'chai';
 import * as fs from "fs";
 import * as OD from '../../lib/OracleDatabaseDriver';
 import * as TSG from '../../lib/TypeScriptGenerator';
-
+const od = OD.OracleDatabaseDriver.instance();
 import { Given, When, Then } from 'cucumber';
 import { IPlsqlProcedure } from '../../lib/OracleDbInterfaces';
+
+/** Function that count occurrences of a substring in a string;
+ * @param {String} string               The string
+ * @param {String} subString            The sub string to search for
+ * @param {Boolean} [allowOverlapping]  Optional. (Default:false)
+ *
+ * @author Vitim.us https://gist.github.com/victornpb/7736865
+ * @see Unit Test https://jsfiddle.net/Victornpb/5axuh96u/
+ * @see http://stackoverflow.com/questions/4009756/how-to-count-string-occurrence-in-string/7924240#7924240
+ */
+function occurrences(string, subString, allowOverlapping) {
+
+  string += "";
+  subString += "";
+  if (subString.length <= 0) return (string.length + 1);
+
+  var n = 0,
+      pos = 0,
+      step = allowOverlapping ? 1 : subString.length;
+
+  while (true) {
+      pos = string.indexOf(subString, pos);
+      if (pos >= 0) {
+          ++n;
+          pos += step;
+      } else break;
+  }
+  return n;
+}
 
 declare module "cucumber" {
   interface World {
     generatedFileName:string;
     generatedFileContent:string;
     proceduresMetaData: IPlsqlProcedure[];
+    allGeneratedCode: string[];
     }
 }
 //? Given a procedure exists called 'ADD_JOB_HISTORY'
 Given('a procedure exists called {string}', async function (procedureName: string) {
-  let IPlsqlProcedure = 0;
-
-  const od = new OD.OracleDatabaseDriver();
   const returnedProceduresMetaData = await od.proceduresMetadata(`object_name=UPPER('${procedureName}')`);
   expect(returnedProceduresMetaData.length).to.eq(1);
   this.proceduresMetaData = returnedProceduresMetaData;
 });
 
+
+Given('{int} procedures exist with {string}', async function (expectedNumOfProcedures:number, whereClause:string) {
+  const returnedProceduresMetaData = await od.proceduresMetadata(whereClause);
+  expect(returnedProceduresMetaData.length).to.eq(expectedNumOfProcedures);
+  this.proceduresMetaData = returnedProceduresMetaData;
+});
 // ? And the procedure has these arguments
 // | ARGUMENT_NAME   | DATA_TYPE |
 // | P_EMP_ID        | NUMBER    |
@@ -79,4 +112,15 @@ Then('the generated file is similar to {string}', async function (fileName:strin
   }
   expect(removeLinesContaining(targetFileContent,'Timestamp'),"Target file and Generated files must match")
       .to.equal(removeLinesContaining(generatedFileContent,'Timestamp'));
+});
+
+Then('the all the generated files contain only one function', async function () {
+  // Write code here that turns the phrase above into concrete actions
+  console.log("All generated code",this.allGeneratedCode);
+  this.allGeneratedCode.forEach(codeSnippet => {
+    const async_functions_count = occurrences(codeSnippet,'export async',false);
+    console.log("CodeSnippet",async_functions_count)
+    expect(async_functions_count,"Found: "+ async_functions_count+"\nOnly one export: \n\n" + codeSnippet).to.equal(1);
+  })
+  //return 'pending';
 });

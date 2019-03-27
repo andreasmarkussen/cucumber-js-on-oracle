@@ -61,7 +61,7 @@ export class OracleDatabaseDriver{
         let realWhereClause = '1=1';
         if(whereClause === undefined)
             realWhereClause = whereClause;
-        const proceduresList = await this.exec(`select * from user_procedures where ${whereClause}`);
+        const proceduresList = await this.exec(`select * from user_procedures where ${whereClause} and procedure_name is null` );
         if(proceduresList.rows !== undefined){
             let pl:IPlsqlProcedure[] =[];
             const ar:any[][] = proceduresList.rows;

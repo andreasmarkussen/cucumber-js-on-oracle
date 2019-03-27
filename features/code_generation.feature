@@ -30,3 +30,11 @@ Feature: Code Generation of a typesafe TypeScript/PlSQL gateway
             | _call_ADD_JOB_HISTORY( |
             | P_EMP_ID               |
         And the generated file is similar to './lib/generated/ADD_JOB_HISTORY.target.ts'
+
+    Scenario: Two or more files
+
+        Created since I had a bug - the generated files contained two parts
+
+        Given 2 procedures exist with "object_name like '%_JOB_%' "
+        When TypeScript code is generated
+        Then the all the generated files contain only one function

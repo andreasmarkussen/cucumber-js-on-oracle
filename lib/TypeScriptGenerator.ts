@@ -87,10 +87,10 @@ export class OracleTypeScriptStrategy {
 
     /** This method is only for procedures that does not belong to a package. */
     addProcedures(procedureMetaDataList: Array<IPlsqlProcedure>): string[] {
-        let body = "return true;";
-        let code = "";
         let allCode: string[] = [];
         procedureMetaDataList.forEach(procedureMetaData => {
+            let body = "return true;";
+            let code = "";
             const typeScriptFile = new TypeScriptFile(this.outputPath, procedureMetaData.object_name);
             typeScriptFile.addLine(this.getOracleFileStart());
             const tsArgList: Array<any> = procedureMetaData.arguments.map(arg =>

@@ -1,5 +1,4 @@
 //Generated file - DO NOT ALTER
-//Timestamp:2019-03-27T13:08:48.969Z
 //Generated using TypeScriptGenerator.ts 
 import * as OraDB from 'oracledb';
 import * as ODAO from '../OracleDatabaseDriver';

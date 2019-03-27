@@ -79,6 +79,12 @@ This uses a method on the Class [employeeList](https://github.com/andreasmarkuss
 1. Inspect the feature files
 1. Inspect the unit test specifications
 
+### Just generate or update the files
+
+
+    npm run generate -- --where="object_name like '%ADD_JOB_%'"
+
+
 ## Dependencies
 
 * Cucumber: Framework to run BDD Test automation

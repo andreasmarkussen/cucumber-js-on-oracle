@@ -8,7 +8,6 @@ export class TypeScriptFile {
         if (!this.fileName.includes(".ts"))
             this.filePath += ".ts";
         this.addLine("//Generated file - DO NOT ALTER");
-        this.addLine("//Timestamp:" + new Date(Date.now()).toISOString());
         this.addLine("//Generated using TypeScriptGenerator.ts ");
     }
     public addLine(line) {
@@ -19,5 +18,6 @@ export class TypeScriptFile {
     }
     public save() {
         fs.writeFileSync(this.filePath, this.content);
+        console.log("Saved TypeScript file ",this.filePath,"size",this.content.length,"bytes");
     }
 }
